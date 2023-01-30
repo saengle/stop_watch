@@ -93,13 +93,16 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 FloatingActionButton(
-                  backgroundColor: Colors.green,
-                  child: Icon(Icons.refresh),
+                  backgroundColor: _isRunning ? Colors.grey : Colors.green,
+                  child: _isRunning
+                      ? const Icon(Icons.add)
+                      : const Icon(Icons.refresh),
                   onPressed: () {
                     if (_isRunning) {
                       setState(() {
-                        _reset();
-                        _clickStartPauseButton();
+                        setState(() {
+                          _addLapTime();
+                        });
                       });
                     } else {
                       setState(() {
@@ -109,9 +112,11 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                   },
                 ),
                 FloatingActionButton(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: _isRunning ? Colors.red : Colors.blue,
                   child: _isRunning
-                      ? const Icon(Icons.pause)
+                      ? const Icon(
+                          Icons.pause,
+                        )
                       : const Icon(Icons.play_arrow),
                   onPressed: () {
                     setState(() {
@@ -119,17 +124,17 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                     });
                   },
                 ),
-                FloatingActionButton(
-                  backgroundColor: Colors.orange,
-                  child: const Icon(Icons.add),
-                  onPressed: () {
-                    if (_isRunning) {
-                      setState(() {
-                        _addLapTime();
-                      });
-                    }
-                  },
-                ),
+                // FloatingActionButton(
+                //   backgroundColor: Colors.orange,
+                //   child: const Icon(Icons.add),
+                //   onPressed: () {
+                //     if (_isRunning) {
+                //       setState(() {
+                //         _addLapTime();
+                //       });
+                //     }
+                //   },
+                // ),
               ],
             ),
             const Spacer(),
